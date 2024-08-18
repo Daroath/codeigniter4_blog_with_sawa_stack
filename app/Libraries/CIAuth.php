@@ -28,7 +28,7 @@ class CIAuth
     public static function check()
     {
         $session = session();
-        $session->has('logged_in');
+        return $session->has('logged_in');
     }
 
     public static function forget()
