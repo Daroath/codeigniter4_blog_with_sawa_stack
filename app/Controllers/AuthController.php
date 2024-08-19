@@ -135,7 +135,7 @@ class AuthController extends BaseController
         }
 
         //Create action link
-        $actionLink = route_to('admin.reset-password', $token);
+        $actionLink = base_url(route_to('admin.reset-password', $token));
 
         $mail_data = [
             'actionLink' => $actionLink,
@@ -159,4 +159,27 @@ class AuthController extends BaseController
         }
         return redirect()->route('admin.forgot.form')->with('fail', 'Something went wrong with sending email.');
     }
+
+    public function resetPassword($token)
+    {
+        $passwordReset = new PasswordResetToken();
+        $check_token = $passwordReset->asObject()->where('token', $token)->first();
+        if (!$check_token) {
+            return redirect()->route('admin.forgot.form')->with('fail', 'Invalid token. Request another token?');
+        }
+
+        $diffMins = Carbon::createFromFormat('Y-m-d H:i:s', $check_token->created_at)->diffInMinutes(Carbon::now());
+        if ($diffMins > 15) {
+            //If token expired 
+            return redirect()->route('admin.forgot.form')->with('fail', 'Token expired. Please request new token');
+        }
+
+        return view('backend/pages/auth/reset', [
+            'pageTitle' => 'Reset Password',
+            'validation' => null,
+            'token' => $token
+        ]);
+    }
+
+    public function resetPasswordHandler($token) {}
 }
