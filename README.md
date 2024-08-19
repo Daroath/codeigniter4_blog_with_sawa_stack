@@ -1,71 +1,50 @@
-# CodeIgniter 4 Application Starter
+# CodeIgniter 4 Blog Tutorial
 
-## What is CodeIgniter?
+1. Firstly, clone the repository
+2. Clear cache composer and composer update to fetch the vendor 
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+```bash
+composer clearcache
+composer update
+```
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+3. Create .env file and your own configuration similar to below:
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+```bash
+app.baseURL = 'http://ci4blog.local'
+app_baseURL = 'http://ci4blog.local'
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+database.default.hostname = localhost
+database.default.database = ci4blog_db
+database.default.username = root
+database.default.password = 
+database.default.DBDriver = MySQLi
+database.default.DBPrefix = 
+database.default.port = 3306
 
-## Installation & updates
+#The author using mailtrap https//mailtrap.io for sending email with PhpMailer using below config
+EMAIL_HOST=
+EMAIL_USERNAME=
+EMAIL_PASSWORD=
+EMAIL_ENCRYPTION=
+EMAIL_PORT=687
+EMAIL_FROM_ADDRESS=
+EMAIL_FROM_NAME=
+```
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+4. Create database and run migration for 
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+```bash
+php spark migrate
+```
 
-## Setup
+5. Seed a user for testing
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+```bash
+php spark db:seed UserSeeder
+```
 
-## Important Change with index.php
+6. Enjoy coding
 
-`index.php` is no longer in the root of the project! It has been moved inside the _public_ folder,
-for better security and separation of components.
-
-This means that you should configure your web server to "point" to your project's _public_ folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter _public/..._, as the rest of your logic and the
-framework are exposed.
-
-**Please** read the user guide for a better explanation of how CI4 works!
-
-## Repository Management
-
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
-
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
-
-## Server Requirements
-
-PHP version 8.1 or higher is required, with the following extensions installed:
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-
-> [!WARNING]
->
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
 
 Tutorial here ['Sawa Stacks'](https://youtu.be/o-Yhyz28MPA?si=DuYU-yegB7INIzZ3)
